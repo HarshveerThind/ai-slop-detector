@@ -6,18 +6,18 @@ Two functions matter:
         Fetches metadata, thumbnail, 3 frames and a 30 second audio clip.
         Knows nothing about labels. The live API will reuse this later.
 
-    add_video(url, ai_voice, ai_visuals)
+    add_video(url, ai_voice, ai_visuals, ai_thumbnail)
         Calls collect_video, attaches your labels, inserts the row.
 
 Use from the terminal, run from the repo root:
-    python src/collect.py "https://www.youtube.com/watch?v=VIDEO_ID" 1 0
+    python src/collect.py "https://www.youtube.com/watch?v=VIDEO_ID" 1 0 1
 
 Check progress without adding anything:
     python src/collect.py stats
 
 Or from Python:
     from collect import add_video
-    add_video("https://youtu.be/VIDEO_ID", ai_voice=1, ai_visuals=0)
+    add_video("https://youtu.be/VIDEO_ID", ai_voice=1, ai_visuals=0, ai_thumbnail=1)
 
 Needs YOUTUBE_API_KEY in a .env file at the repo root,
 plus yt-dlp and ffmpeg installed.
@@ -202,19 +202,25 @@ def fetch_audio(video_id: str, duration_seconds: int) -> str:
         end = min(end, duration_seconds)
 
     with tempfile.TemporaryDirectory() as tmp:
-        # step 1, yt-dlp grabs just that section of the audio stream
-        dl = subprocess.run(
-            [
-                "yt-dlp", "--quiet", "--no-warnings", "--no-playlist",
-                "-f", "bestaudio/best",
-                "--download-sections", f"*{start}-{end}",
-                "-o", str(Path(tmp) / "clip.%(ext)s"),
-                f"https://www.youtube.com/watch?v={video_id}",
-            ],
-            capture_output=True, text=True,
-        )
-        files = list(Path(tmp).glob("clip.*"))
-        if dl.returncode != 0 or not files:
+        # step 1, yt-dlp grabs just that section of the audio stream.
+        # run through this python so it works without the venv on PATH,
+        # and retry because youtube sometimes fails a request at random
+        for _ in range(3):
+            dl = subprocess.run(
+                [
+                    sys.executable, "-m", "yt_dlp",
+                    "--quiet", "--no-warnings", "--no-playlist",
+                    "-f", "bestaudio/best",
+                    "--download-sections", f"*{start}-{end}",
+                    "-o", str(Path(tmp) / "clip.%(ext)s"),
+                    f"https://www.youtube.com/watch?v={video_id}",
+                ],
+                capture_output=True, text=True,
+            )
+            files = list(Path(tmp).glob("clip.*"))
+            if dl.returncode == 0 and files:
+                break
+        else:
             raise RuntimeError(f"yt-dlp failed for {video_id}: {dl.stderr.strip()}")
 
         # step 2, ffmpeg converts to the format the voice detector wants
@@ -260,13 +266,18 @@ def print_counts(conn) -> None:
         print("  AI videos are at the cap, add real ones from here")
 
 
-def add_video(url: str, ai_voice: int, ai_visuals: int) -> None:
-    """Collect one video, attach labels, insert the row."""
-    if ai_voice not in (0, 1) or ai_visuals not in (0, 1):
-        raise ValueError("ai_voice and ai_visuals must each be 0 or 1")
+def add_video(url: str, ai_voice: int, ai_visuals: int, ai_thumbnail: int) -> None:
+    """Collect one video, attach labels, insert the row.
+
+    ai_visuals is about the video itself, ai_thumbnail about the thumbnail only.
+    If the video is already in the DB, its labels are updated instead.
+    """
+    if any(v not in (0, 1) for v in (ai_voice, ai_visuals, ai_thumbnail)):
+        raise ValueError("ai_voice, ai_visuals and ai_thumbnail must each be 0 or 1")
 
     video_id = extract_video_id(url)
-    init_db(quiet=True)   # makes sure the table exists, does nothing if it does
+    init_db(quiet=True)   # makes sure the table and columns exist
+    label = 1 if (ai_voice or ai_visuals) else 0   # thumbnail does not count
 
     conn = sqlite3.connect(DB_PATH)
     try:
@@ -274,15 +285,29 @@ def add_video(url: str, ai_voice: int, ai_visuals: int) -> None:
             "SELECT 1 FROM videos WHERE video_id = ?", (video_id,)
         ).fetchone()
         if exists:
-            print(f"{video_id} is already in the DB, skipped")
+            conn.execute(
+                """UPDATE videos SET ai_voice = ?, ai_visuals = ?, ai_thumbnail = ?, label = ?
+                   WHERE video_id = ?""",
+                (ai_voice, ai_visuals, ai_thumbnail, label, video_id),
+            )
+            conn.commit()
+            print(f"{video_id} was already in the DB, labels updated")
+            print(f"  voice={ai_voice} visuals={ai_visuals} "
+                  f"thumbnail={ai_thumbnail} label={label}")
             return
 
         print(f"Collecting {video_id}")
-        row = collect_video(video_id)
+        try:
+            row = collect_video(video_id)
+        except Exception as e:
+            # one bad video should not stop a whole batch
+            print(f"  FAILED, skipped: {e}")
+            return
 
         row["ai_voice"] = ai_voice
         row["ai_visuals"] = ai_visuals
-        row["label"] = 1 if (ai_voice or ai_visuals) else 0
+        row["ai_thumbnail"] = ai_thumbnail
+        row["label"] = label
         row["collected_at"] = datetime.now(timezone.utc).isoformat()
 
         columns = ", ".join(row)
@@ -295,7 +320,8 @@ def add_video(url: str, ai_voice: int, ai_visuals: int) -> None:
         ).fetchone()[0]
 
         print(f"Added: {row['title']}")
-        print(f"  voice={ai_voice} visuals={ai_visuals} label={row['label']}")
+        print(f"  voice={ai_voice} visuals={ai_visuals} "
+              f"thumbnail={ai_thumbnail} label={label}")
         print(f"  {row['channel_title']} now has {count} videos")
         print_counts(conn)
         if count > MAX_PER_CHANNEL:
@@ -310,7 +336,8 @@ if __name__ == "__main__":
         with sqlite3.connect(DB_PATH) as conn:
             print_counts(conn)
         sys.exit(0)
-    if len(sys.argv) != 4:
-        print('Usage: python src/collect.py "<youtube link>" <ai_voice 0|1> <ai_visuals 0|1>')
+    if len(sys.argv) != 5:
+        print('Usage: python src/collect.py "<youtube link>" '
+              '<ai_voice 0|1> <ai_visuals 0|1> <ai_thumbnail 0|1>')
         sys.exit(1)
-    add_video(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]))
+    add_video(sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), int(sys.argv[4]))

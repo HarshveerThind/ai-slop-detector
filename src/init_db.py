@@ -43,8 +43,9 @@ CREATE TABLE IF NOT EXISTS videos (
 
     -- labels, filled in by hand, NULL until labeled
     ai_voice             INTEGER CHECK (ai_voice IN (0, 1)),
-    ai_visuals           INTEGER CHECK (ai_visuals IN (0, 1)),
-    label                INTEGER CHECK (label IN (0, 1)),
+    ai_visuals           INTEGER CHECK (ai_visuals IN (0, 1)),   -- the video itself, not the thumbnail
+    ai_thumbnail         INTEGER CHECK (ai_thumbnail IN (0, 1)),
+    label                INTEGER CHECK (label IN (0, 1)),        -- ai_voice OR ai_visuals
 
     -- bookkeeping
     split                TEXT CHECK (split IN ('train', 'test')),
@@ -52,12 +53,22 @@ CREATE TABLE IF NOT EXISTS videos (
 );
 """
 
+# columns added after the first version of the schema, as (name, definition).
+# CREATE TABLE IF NOT EXISTS skips old tables, so these get added by hand.
+NEW_COLUMNS = [
+    ("ai_thumbnail", "INTEGER CHECK (ai_thumbnail IN (0, 1))"),
+]
+
 
 def init_db(db_path: Path = DB_PATH, quiet: bool = False) -> None:
     db_path.parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(db_path)
     try:
         conn.executescript(SCHEMA)
+        existing = {row[1] for row in conn.execute("PRAGMA table_info(videos)")}
+        for name, definition in NEW_COLUMNS:
+            if name not in existing:
+                conn.execute(f"ALTER TABLE videos ADD COLUMN {name} {definition}")
         conn.commit()
     finally:
         conn.close()
