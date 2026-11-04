@@ -27,6 +27,7 @@ EMBEDDING_COLUMNS = [f"e{i}" for i in range(EMBEDDING_SIZE)]
 VOICE_WINDOW_SECONDS = 5
 MIN_WINDOW_SECONDS = 1   # a shorter tail than this is not worth scoring
 SILENCE_PEAK = 1e-4
+STACK_CLIP = 1e-4        # keeps logits finite when a sub-score is exactly 0 or 1
 
 FRAME_COLUMNS = ["frame1_path", "frame2_path", "frame3_path"]
 IMAGE_COLUMNS = ["thumb_path"] + FRAME_COLUMNS
@@ -115,6 +116,15 @@ def _tag_count(tags) -> float:
         return float(len(json.loads(tags) if isinstance(tags, str) else tags))
     except (TypeError, ValueError):
         return NAN
+
+
+# ---------- stacking ----------
+
+def stack_inputs(scores: pd.DataFrame) -> pd.DataFrame:
+    """Sub-score probabilities to logits, the scale the stackers work on.
+    Raw probabilities pile up near 0 and 1 and hide most of the signal."""
+    clipped = scores.clip(STACK_CLIP, 1 - STACK_CLIP)
+    return np.log(clipped / (1 - clipped))
 
 
 # ---------- metadata ----------

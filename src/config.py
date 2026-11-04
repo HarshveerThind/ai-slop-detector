@@ -7,6 +7,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "data"
 RAW_DIR = DATA_DIR / "raw"
 FEATURE_DIR = DATA_DIR / "features"
+CACHE_DB = DATA_DIR / "cache.db"
 MODEL_DIR = Path(os.getenv("MODEL_DIR", ROOT / "models"))
 REPORT_DIR = ROOT / "reports"
 
@@ -31,3 +32,6 @@ VOICE_CANDIDATES = [
     {"model_id": "MelodyMachine/Deepfake-audio-detection-V2", "fake_label": "fake"},
     {"model_id": "abhishtagatya/wav2vec2-base-960h-itw-deepfake", "fake_label": "spoof"},
 ]
+
+# chosen from reports/voice_eval.json
+VOICE_MODEL = VOICE_CANDIDATES[1]

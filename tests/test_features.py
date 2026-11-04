@@ -2,11 +2,13 @@ import math
 from datetime import datetime, timezone
 
 import numpy as np
+import pandas as pd
 import pytest
 
 from config import SAMPLE_RATE
 from features import (
-    METADATA_FEATURES, metadata_features, stored_path, voice_score, voice_windows,
+    METADATA_FEATURES, metadata_features, stack_inputs, stored_path, voice_score,
+    voice_windows,
 )
 
 NOW = datetime(2026, 1, 11, tzinfo=timezone.utc)
@@ -109,6 +111,14 @@ def test_stored_path_handles_windows_separators():
     assert path.is_absolute()
     assert stored_path(None) is None
     assert stored_path("") is None
+
+
+def test_stack_inputs_are_logits_and_stay_finite():
+    out = stack_inputs(pd.DataFrame({"a": [0.5, 0.0, 1.0, 0.75]}))["a"].tolist()
+    assert out[0] == pytest.approx(0)
+    assert out[1] == pytest.approx(-out[2])
+    assert all(math.isfinite(v) for v in out)
+    assert out[3] == pytest.approx(math.log(3))
 
 
 def test_voice_windows_cut_into_five_seconds_and_drop_tiny_tail():
