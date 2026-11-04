@@ -1,0 +1,243 @@
+{
+  "model_version": "2026-11-04T00:30:40Z",
+  "threshold": 0.21036553097573377,
+  "unsure_band": [
+    0.06036553097573377,
+    0.36036553097573376
+  ],
+  "visual_auc_by_c": {
+    "0.1": 0.439516129032258,
+    "1": 0.5225806451612903,
+    "10": 0.6435483870967742
+  },
+  "metrics": {
+    "stacker_full vs label": {
+      "rows": 82,
+      "positives": 30,
+      "threshold": 0.2104,
+      "roc_auc": 0.6935897435897436,
+      "average_precision": 0.46580769188264676,
+      "precision": 0.5952380952380952,
+      "recall": 0.8333333333333334,
+      "f1": 0.6944444444444444,
+      "confusion_matrix": {
+        "tn": 35,
+        "fp": 17,
+        "fn": 5,
+        "tp": 25
+      }
+    },
+    "stacker_no_voice vs label": {
+      "rows": 82,
+      "positives": 30,
+      "threshold": 0.2104,
+      "roc_auc": 0.7025641025641025,
+      "average_precision": 0.46485426799991003,
+      "precision": 0.5681818181818182,
+      "recall": 0.8333333333333334,
+      "f1": 0.6756756756756757,
+      "confusion_matrix": {
+        "tn": 33,
+        "fp": 19,
+        "fn": 5,
+        "tp": 25
+      }
+    },
+    "metadata vs label": {
+      "rows": 82,
+      "positives": 30,
+      "threshold": 0.0008,
+      "roc_auc": 0.8435897435897436,
+      "average_precision": 0.6908812220456111,
+      "precision": 0.625,
+      "recall": 1.0,
+      "f1": 0.7692307692307693,
+      "confusion_matrix": {
+        "tn": 34,
+        "fp": 18,
+        "fn": 0,
+        "tp": 30
+      }
+    },
+    "visuals vs ai_visuals": {
+      "rows": 82,
+      "positives": 20,
+      "threshold": 0.1557,
+      "roc_auc": 0.6435483870967742,
+      "average_precision": 0.3235309856205144,
+      "precision": 0.3220338983050847,
+      "recall": 0.95,
+      "f1": 0.4810126582278481,
+      "confusion_matrix": {
+        "tn": 22,
+        "fp": 40,
+        "fn": 1,
+        "tp": 19
+      }
+    },
+    "voice vs ai_voice": {
+      "rows": 82,
+      "positives": 21,
+      "threshold": 0.2196,
+      "roc_auc": 0.8844652615144418,
+      "average_precision": 0.7005732472877603,
+      "precision": 0.6956521739130435,
+      "recall": 0.7619047619047619,
+      "f1": 0.7272727272727273,
+      "confusion_matrix": {
+        "tn": 54,
+        "fp": 7,
+        "fn": 5,
+        "tp": 16
+      }
+    }
+  },
+  "baselines": {
+    "disclosure flag vs label": {
+      "rows": 82,
+      "positives": 30,
+      "threshold": 0.5,
+      "roc_auc": 0.5,
+      "average_precision": 0.36585365853658536,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "confusion_matrix": {
+        "tn": 52,
+        "fp": 0,
+        "fn": 30,
+        "tp": 0
+      }
+    },
+    "metadata alone vs label": {
+      "rows": 82,
+      "positives": 30,
+      "threshold": 0.0008,
+      "roc_auc": 0.8435897435897436,
+      "average_precision": 0.6908812220456111,
+      "precision": 0.625,
+      "recall": 1.0,
+      "f1": 0.7692307692307693,
+      "confusion_matrix": {
+        "tn": 34,
+        "fp": 18,
+        "fn": 0,
+        "tp": 30
+      }
+    },
+    "visuals alone vs label": {
+      "rows": 82,
+      "positives": 30,
+      "threshold": 0.0766,
+      "roc_auc": 0.6044871794871794,
+      "average_precision": 0.501469095061948,
+      "precision": 0.4225352112676056,
+      "recall": 1.0,
+      "f1": 0.594059405940594,
+      "confusion_matrix": {
+        "tn": 11,
+        "fp": 41,
+        "fn": 0,
+        "tp": 30
+      }
+    },
+    "voice alone vs label": {
+      "rows": 82,
+      "positives": 30,
+      "threshold": 0.1244,
+      "roc_auc": 0.7878205128205128,
+      "average_precision": 0.7477885268913205,
+      "precision": 0.6363636363636364,
+      "recall": 0.7,
+      "f1": 0.6666666666666666,
+      "confusion_matrix": {
+        "tn": 40,
+        "fp": 12,
+        "fn": 9,
+        "tp": 21
+      }
+    }
+  },
+  "visual_comparison": {
+    "thumbnail_plus_frames": {
+      "rows": 82,
+      "positives": 20,
+      "threshold": 0.1557,
+      "roc_auc": 0.6435483870967742,
+      "average_precision": 0.3235309856205144,
+      "precision": 0.3220338983050847,
+      "recall": 0.95,
+      "f1": 0.4810126582278481,
+      "confusion_matrix": {
+        "tn": 22,
+        "fp": 40,
+        "fn": 1,
+        "tp": 19
+      }
+    },
+    "frames_only": {
+      "rows": 82,
+      "positives": 20,
+      "threshold": 0.1292,
+      "roc_auc": 0.5669354838709677,
+      "average_precision": 0.2627934861470197,
+      "precision": 0.3225806451612903,
+      "recall": 1.0,
+      "f1": 0.4878048780487805,
+      "confusion_matrix": {
+        "tn": 20,
+        "fp": 42,
+        "fn": 0,
+        "tp": 20
+      }
+    },
+    "frames_only_best_c": 10,
+    "ai_thumbnail_but_real_visuals_rows": 10,
+    "mean_score_ai_thumbnail_but_real_visuals": {
+      "thumbnail_plus_frames": 0.25652435421943665,
+      "frames_only": 0.24436528645455838
+    },
+    "mean_score_fully_real": {
+      "thumbnail_plus_frames": 0.2278028791770339,
+      "frames_only": 0.24662424717098475
+    }
+  },
+  "stacker_weights": {
+    "stacker_full": {
+      "metadata": 0.20129656881906016,
+      "visuals": 0.814493695412691,
+      "voice": 0.9157873184871754
+    },
+    "stacker_no_voice": {
+      "metadata": 0.22406506207500823,
+      "visuals": 0.903915595391485
+    }
+  },
+  "feature_importance_gain": {
+    "subs_per_video": 452.26188715788453,
+    "views_per_day": 88.14438925890859,
+    "log_views": 87.91413701939257,
+    "desc_link_count": 81.4556088730684,
+    "like_per_view": 51.66418744288331,
+    "log_channel_subs": 48.46588333747925,
+    "channel_age_days": 39.24836669518039,
+    "uploads_per_day": 33.76972861209987,
+    "desc_hashtag_count": 32.60214256979703,
+    "title_len": 12.034466060971921,
+    "video_age_days": 8.423957940810823,
+    "tag_count": 7.914260155853408,
+    "title_word_count": 4.585812856106312,
+    "title_digit_count": 3.733920377131665,
+    "desc_len": 3.717377084535409,
+    "comment_per_view": 3.6594509385322063,
+    "channel_video_count": 3.105135613549308,
+    "title_caps_ratio": 2.375951266853363,
+    "desc_ai_terms": 1.981822353008666,
+    "duration_seconds": 1.6753862918565567,
+    "is_short": 0.08541294671290922,
+    "title_exclaim": 0.0,
+    "title_question": 0.0,
+    "title_emoji_count": 0.0,
+    "disclosure_flag": 0.0
+  }
+}

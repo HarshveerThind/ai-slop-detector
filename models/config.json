@@ -1,0 +1,68 @@
+{
+  "model_version": "2026-11-04T00:30:40Z",
+  "METADATA_FEATURES": [
+    "title_len",
+    "title_word_count",
+    "title_caps_ratio",
+    "title_exclaim",
+    "title_question",
+    "title_digit_count",
+    "title_emoji_count",
+    "desc_len",
+    "desc_link_count",
+    "desc_hashtag_count",
+    "desc_ai_terms",
+    "tag_count",
+    "duration_seconds",
+    "is_short",
+    "log_views",
+    "like_per_view",
+    "comment_per_view",
+    "video_age_days",
+    "views_per_day",
+    "disclosure_flag",
+    "channel_age_days",
+    "channel_video_count",
+    "uploads_per_day",
+    "log_channel_subs",
+    "subs_per_video"
+  ],
+  "clip_model": "ViT-B-32",
+  "clip_pretrained": "laion2b_s34b_b79k",
+  "voice_model_id": "Gustking/wav2vec2-large-xlsr-deepfake-audio-classification",
+  "voice_fake_label": "fake",
+  "stack_full": [
+    "metadata",
+    "visuals",
+    "voice"
+  ],
+  "stack_no_voice": [
+    "metadata",
+    "visuals"
+  ],
+  "fill_values": {
+    "metadata": 0.3187527822964077,
+    "visuals": 0.24664061984456168,
+    "voice": 0.188498851070862
+  },
+  "threshold": 0.21036553097573377,
+  "unsure_band": [
+    0.06036553097573377,
+    0.36036553097573376
+  ],
+  "sub_thresholds": {
+    "metadata": 0.0008,
+    "visuals": 0.1557,
+    "voice": 0.2196
+  },
+  "visual_c": 10,
+  "training_rows": {
+    "total": 82,
+    "channels": 19,
+    "label_positive": 30,
+    "ai_visuals_positive": 20,
+    "ai_voice_positive": 21,
+    "with_embedding": 82,
+    "with_voice": 82
+  }
+}
