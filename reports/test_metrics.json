@@ -1,0 +1,210 @@
+{
+  "created_at": "2026-11-04T00:30:52.701787+00:00",
+  "model_version": "2026-11-04T00:30:40Z",
+  "test_rows": 10,
+  "test_channels": 2,
+  "metrics": {
+    "stacker_full vs label": {
+      "rows": 10,
+      "positives": 5,
+      "threshold": 0.2104,
+      "roc_auc": 1.0,
+      "average_precision": 1.0,
+      "precision": 0.7142857142857143,
+      "recall": 1.0,
+      "f1": 0.8333333333333334,
+      "confusion_matrix": {
+        "tn": 3,
+        "fp": 2,
+        "fn": 0,
+        "tp": 5
+      }
+    },
+    "stacker_no_voice vs label": {
+      "rows": 10,
+      "positives": 5,
+      "threshold": 0.2104,
+      "roc_auc": 0.6000000000000001,
+      "average_precision": 0.5977777777777777,
+      "precision": 0.6666666666666666,
+      "recall": 0.4,
+      "f1": 0.5,
+      "confusion_matrix": {
+        "tn": 4,
+        "fp": 1,
+        "fn": 3,
+        "tp": 2
+      }
+    },
+    "metadata vs label": {
+      "rows": 10,
+      "positives": 5,
+      "threshold": 0.0008,
+      "roc_auc": 1.0,
+      "average_precision": 1.0,
+      "precision": 0.8333333333333334,
+      "recall": 1.0,
+      "f1": 0.9090909090909091,
+      "confusion_matrix": {
+        "tn": 4,
+        "fp": 1,
+        "fn": 0,
+        "tp": 5
+      }
+    },
+    "visuals vs ai_visuals": {
+      "rows": 10,
+      "positives": 0,
+      "threshold": 0.1557,
+      "roc_auc": null,
+      "average_precision": null,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "confusion_matrix": {
+        "tn": 5,
+        "fp": 5,
+        "fn": 0,
+        "tp": 0
+      }
+    },
+    "voice vs ai_voice": {
+      "rows": 10,
+      "positives": 5,
+      "threshold": 0.2196,
+      "roc_auc": 0.9600000000000001,
+      "average_precision": 0.9666666666666666,
+      "precision": 1.0,
+      "recall": 0.8,
+      "f1": 0.8888888888888888,
+      "confusion_matrix": {
+        "tn": 5,
+        "fp": 0,
+        "fn": 1,
+        "tp": 4
+      }
+    }
+  },
+  "per_video": [
+    {
+      "video_id": "1yorrpk1DYk",
+      "channel_title": "Will Tennyson",
+      "label": 0,
+      "ai_voice": 0,
+      "ai_visuals": 0,
+      "overall": 0.0678,
+      "verdict": "unsure",
+      "voice": 0.072,
+      "visuals": 0.256,
+      "metadata": 0.0001
+    },
+    {
+      "video_id": "3WNadWvx3pE",
+      "channel_title": "Requested Reads",
+      "label": 1,
+      "ai_voice": 1,
+      "ai_visuals": 0,
+      "overall": 0.3262,
+      "verdict": "unsure",
+      "voice": 0.1761,
+      "visuals": 0.0722,
+      "metadata": 0.8339
+    },
+    {
+      "video_id": "9dNPbViH8Po",
+      "channel_title": "Will Tennyson",
+      "label": 0,
+      "ai_voice": 0,
+      "ai_visuals": 0,
+      "overall": 0.1034,
+      "verdict": "unsure",
+      "voice": 0.0732,
+      "visuals": 0.3727,
+      "metadata": 0.0001
+    },
+    {
+      "video_id": "HQ_7noX-2Qg",
+      "channel_title": "Will Tennyson",
+      "label": 0,
+      "ai_voice": 0,
+      "ai_visuals": 0,
+      "overall": 0.2295,
+      "verdict": "unsure",
+      "voice": 0.0901,
+      "visuals": 0.4777,
+      "metadata": 0.0007
+    },
+    {
+      "video_id": "Ou8jzevGmMQ",
+      "channel_title": "Requested Reads",
+      "label": 1,
+      "ai_voice": 1,
+      "ai_visuals": 0,
+      "overall": 0.3298,
+      "verdict": "unsure",
+      "voice": 0.2707,
+      "visuals": 0.0398,
+      "metadata": 0.8498
+    },
+    {
+      "video_id": "TDpZl9INc4w",
+      "channel_title": "Requested Reads",
+      "label": 1,
+      "ai_voice": 1,
+      "ai_visuals": 0,
+      "overall": 0.2909,
+      "verdict": "unsure",
+      "voice": 0.2647,
+      "visuals": 0.0598,
+      "metadata": 0.3179
+    },
+    {
+      "video_id": "lIyNbxsAAjU",
+      "channel_title": "Requested Reads",
+      "label": 1,
+      "ai_voice": 1,
+      "ai_visuals": 0,
+      "overall": 0.3788,
+      "verdict": "likely_ai",
+      "voice": 0.3212,
+      "visuals": 0.0406,
+      "metadata": 0.8331
+    },
+    {
+      "video_id": "o3rG1dZdwT0",
+      "channel_title": "Will Tennyson",
+      "label": 0,
+      "ai_voice": 0,
+      "ai_visuals": 0,
+      "overall": 0.1184,
+      "verdict": "unsure",
+      "voice": 0.0815,
+      "visuals": 0.2433,
+      "metadata": 0.0015
+    },
+    {
+      "video_id": "s-F1EciASeE",
+      "channel_title": "Will Tennyson",
+      "label": 0,
+      "ai_voice": 0,
+      "ai_visuals": 0,
+      "overall": 0.2433,
+      "verdict": "unsure",
+      "voice": 0.2122,
+      "visuals": 0.3449,
+      "metadata": 0.0001
+    },
+    {
+      "video_id": "szjCEH8cHik",
+      "channel_title": "Requested Reads",
+      "label": 1,
+      "ai_voice": 1,
+      "ai_visuals": 0,
+      "overall": 0.7641,
+      "verdict": "likely_ai",
+      "voice": 0.7262,
+      "visuals": 0.0446,
+      "metadata": 0.8405
+    }
+  ]
+}
