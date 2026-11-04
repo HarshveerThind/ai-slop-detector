@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>AI Slop Detector</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main>
+      <section id="message" hidden>
+        <p id="message-text"></p>
+        <div id="progress" class="bar" hidden><div id="progress-fill" class="fill"></div></div>
+        <button id="message-button" type="button" hidden></button>
+      </section>
+
+      <section id="result" hidden>
+        <div class="headline">
+          <span id="overall"></span>
+          <span id="verdict"></span>
+        </div>
+
+        <div class="score" id="score-voice">
+          <div class="score-label"><span>Voice</span><span class="score-value"></span></div>
+          <div class="bar"><div class="fill"></div></div>
+        </div>
+        <div class="score" id="score-visuals">
+          <div class="score-label"><span>Visuals</span><span class="score-value"></span></div>
+          <div class="bar"><div class="fill"></div></div>
+        </div>
+        <div class="score" id="score-metadata">
+          <div class="score-label"><span>Metadata</span><span class="score-value"></span></div>
+          <div class="bar"><div class="fill"></div></div>
+        </div>
+
+        <ul id="reasons"></ul>
+        <button id="rescan" type="button">Rescan</button>
+      </section>
+    </main>
+    <footer>A probability, not proof</footer>
+    <script src="popup.js"></script>
+  </body>
+</html>
