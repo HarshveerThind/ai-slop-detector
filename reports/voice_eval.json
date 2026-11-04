@@ -1,0 +1,439 @@
+{
+  "created_at": "2026-11-04T00:10:44.230925+00:00",
+  "train_clips": 82,
+  "positives": 21,
+  "results": [
+    {
+      "model_id": "Gustking/wav2vec2-large-xlsr-deepfake-audio-classification",
+      "fake_label": "fake",
+      "clips_scored": 82,
+      "clips_no_score": 0,
+      "roc_auc": 0.8844652615144418,
+      "average_precision": 0.7005732472877603,
+      "mean_score_ai_voice": 0.35198552687726326,
+      "mean_score_not_ai_voice": 0.1322165528424288,
+      "seconds_to_build_cache": 21.3,
+      "per_channel": [
+        {
+          "channel_title": "iReddit for Sleeping",
+          "ai_voice": 1,
+          "voice": 0.488
+        },
+        {
+          "channel_title": "Yaroflasher",
+          "ai_voice": 1,
+          "voice": 0.431
+        },
+        {
+          "channel_title": "BrainRotBob",
+          "ai_voice": 1,
+          "voice": 0.294
+        },
+        {
+          "channel_title": "AI Samson",
+          "ai_voice": 0,
+          "voice": 0.276
+        },
+        {
+          "channel_title": "Animals Explain",
+          "ai_voice": 1,
+          "voice": 0.243
+        },
+        {
+          "channel_title": "BigCatDerek",
+          "ai_voice": 0,
+          "voice": 0.195
+        },
+        {
+          "channel_title": "LazarLazar",
+          "ai_voice": 0,
+          "voice": 0.192
+        },
+        {
+          "channel_title": "Kurzgesagt \u2013 In a Nutshell",
+          "ai_voice": 0,
+          "voice": 0.174
+        },
+        {
+          "channel_title": "FaZe Rug",
+          "ai_voice": 0,
+          "voice": 0.122
+        },
+        {
+          "channel_title": "MrBeast",
+          "ai_voice": 0,
+          "voice": 0.117
+        },
+        {
+          "channel_title": "Dan Kieft",
+          "ai_voice": 0,
+          "voice": 0.109
+        },
+        {
+          "channel_title": "Quiz Blitz",
+          "ai_voice": 1,
+          "voice": 0.109
+        },
+        {
+          "channel_title": "nalu",
+          "ai_voice": 0,
+          "voice": 0.106
+        },
+        {
+          "channel_title": "Veritasium",
+          "ai_voice": 0,
+          "voice": 0.102
+        },
+        {
+          "channel_title": "Jubilee",
+          "ai_voice": 0,
+          "voice": 0.099
+        },
+        {
+          "channel_title": "fern",
+          "ai_voice": 0,
+          "voice": 0.091
+        },
+        {
+          "channel_title": "Marques Brownlee",
+          "ai_voice": 0,
+          "voice": 0.088
+        },
+        {
+          "channel_title": "Twobilee",
+          "ai_voice": 0,
+          "voice": 0.079
+        },
+        {
+          "channel_title": "RedLogic",
+          "ai_voice": 0,
+          "voice": 0.079
+        }
+      ]
+    },
+    {
+      "model_id": "garystafford/wav2vec2-deepfake-voice-detector",
+      "fake_label": "fake",
+      "clips_scored": 82,
+      "clips_no_score": 0,
+      "roc_auc": 0.7697111631537861,
+      "average_precision": 0.7246095466030391,
+      "mean_score_ai_voice": 0.398586919306711,
+      "mean_score_not_ai_voice": 0.03519704398957381,
+      "seconds_to_build_cache": 64.3,
+      "per_channel": [
+        {
+          "channel_title": "iReddit for Sleeping",
+          "ai_voice": 1,
+          "voice": 0.995
+        },
+        {
+          "channel_title": "Yaroflasher",
+          "ai_voice": 1,
+          "voice": 0.33
+        },
+        {
+          "channel_title": "Animals Explain",
+          "ai_voice": 1,
+          "voice": 0.306
+        },
+        {
+          "channel_title": "AI Samson",
+          "ai_voice": 0,
+          "voice": 0.254
+        },
+        {
+          "channel_title": "BigCatDerek",
+          "ai_voice": 0,
+          "voice": 0.084
+        },
+        {
+          "channel_title": "nalu",
+          "ai_voice": 0,
+          "voice": 0.044
+        },
+        {
+          "channel_title": "BrainRotBob",
+          "ai_voice": 1,
+          "voice": 0.042
+        },
+        {
+          "channel_title": "Dan Kieft",
+          "ai_voice": 0,
+          "voice": 0.037
+        },
+        {
+          "channel_title": "Kurzgesagt \u2013 In a Nutshell",
+          "ai_voice": 0,
+          "voice": 0.028
+        },
+        {
+          "channel_title": "RedLogic",
+          "ai_voice": 0,
+          "voice": 0.025
+        },
+        {
+          "channel_title": "Marques Brownlee",
+          "ai_voice": 0,
+          "voice": 0.024
+        },
+        {
+          "channel_title": "fern",
+          "ai_voice": 0,
+          "voice": 0.005
+        },
+        {
+          "channel_title": "Quiz Blitz",
+          "ai_voice": 1,
+          "voice": 0.003
+        },
+        {
+          "channel_title": "Veritasium",
+          "ai_voice": 0,
+          "voice": 0.003
+        },
+        {
+          "channel_title": "Jubilee",
+          "ai_voice": 0,
+          "voice": 0.002
+        },
+        {
+          "channel_title": "FaZe Rug",
+          "ai_voice": 0,
+          "voice": 0.002
+        },
+        {
+          "channel_title": "MrBeast",
+          "ai_voice": 0,
+          "voice": 0.002
+        },
+        {
+          "channel_title": "Twobilee",
+          "ai_voice": 0,
+          "voice": 0.002
+        },
+        {
+          "channel_title": "LazarLazar",
+          "ai_voice": 0,
+          "voice": 0.001
+        }
+      ]
+    },
+    {
+      "model_id": "abhishtagatya/wav2vec2-base-960h-itw-deepfake",
+      "fake_label": "spoof",
+      "clips_scored": 82,
+      "clips_no_score": 0,
+      "roc_auc": 0.6409055425448867,
+      "average_precision": 0.4968919728764459,
+      "mean_score_ai_voice": 0.1905995744302691,
+      "mean_score_not_ai_voice": 0.040357413523591276,
+      "seconds_to_build_cache": 56.3,
+      "per_channel": [
+        {
+          "channel_title": "iReddit for Sleeping",
+          "ai_voice": 1,
+          "voice": 0.637
+        },
+        {
+          "channel_title": "BigCatDerek",
+          "ai_voice": 0,
+          "voice": 0.293
+        },
+        {
+          "channel_title": "Animals Explain",
+          "ai_voice": 1,
+          "voice": 0.155
+        },
+        {
+          "channel_title": "nalu",
+          "ai_voice": 0,
+          "voice": 0.086
+        },
+        {
+          "channel_title": "RedLogic",
+          "ai_voice": 0,
+          "voice": 0.07
+        },
+        {
+          "channel_title": "Jubilee",
+          "ai_voice": 0,
+          "voice": 0.045
+        },
+        {
+          "channel_title": "fern",
+          "ai_voice": 0,
+          "voice": 0.037
+        },
+        {
+          "channel_title": "AI Samson",
+          "ai_voice": 0,
+          "voice": 0.02
+        },
+        {
+          "channel_title": "BrainRotBob",
+          "ai_voice": 1,
+          "voice": 0.004
+        },
+        {
+          "channel_title": "Dan Kieft",
+          "ai_voice": 0,
+          "voice": 0.004
+        },
+        {
+          "channel_title": "FaZe Rug",
+          "ai_voice": 0,
+          "voice": 0.004
+        },
+        {
+          "channel_title": "MrBeast",
+          "ai_voice": 0,
+          "voice": 0.004
+        },
+        {
+          "channel_title": "Marques Brownlee",
+          "ai_voice": 0,
+          "voice": 0.004
+        },
+        {
+          "channel_title": "LazarLazar",
+          "ai_voice": 0,
+          "voice": 0.004
+        },
+        {
+          "channel_title": "Kurzgesagt \u2013 In a Nutshell",
+          "ai_voice": 0,
+          "voice": 0.004
+        },
+        {
+          "channel_title": "Veritasium",
+          "ai_voice": 0,
+          "voice": 0.004
+        },
+        {
+          "channel_title": "Twobilee",
+          "ai_voice": 0,
+          "voice": 0.004
+        },
+        {
+          "channel_title": "Quiz Blitz",
+          "ai_voice": 1,
+          "voice": 0.004
+        },
+        {
+          "channel_title": "Yaroflasher",
+          "ai_voice": 1,
+          "voice": 0.004
+        }
+      ]
+    },
+    {
+      "model_id": "MelodyMachine/Deepfake-audio-detection-V2",
+      "fake_label": "fake",
+      "clips_scored": 82,
+      "clips_no_score": 0,
+      "roc_auc": 0.46760343481654953,
+      "average_precision": 0.27531172967542406,
+      "mean_score_ai_voice": 0.2417383318898785,
+      "mean_score_not_ai_voice": 0.32783718823059055,
+      "seconds_to_build_cache": 10.5,
+      "per_channel": [
+        {
+          "channel_title": "Twobilee",
+          "ai_voice": 0,
+          "voice": 0.826
+        },
+        {
+          "channel_title": "Dan Kieft",
+          "ai_voice": 0,
+          "voice": 0.712
+        },
+        {
+          "channel_title": "nalu",
+          "ai_voice": 0,
+          "voice": 0.708
+        },
+        {
+          "channel_title": "Jubilee",
+          "ai_voice": 0,
+          "voice": 0.666
+        },
+        {
+          "channel_title": "BigCatDerek",
+          "ai_voice": 0,
+          "voice": 0.61
+        },
+        {
+          "channel_title": "Quiz Blitz",
+          "ai_voice": 1,
+          "voice": 0.501
+        },
+        {
+          "channel_title": "BrainRotBob",
+          "ai_voice": 1,
+          "voice": 0.458
+        },
+        {
+          "channel_title": "MrBeast",
+          "ai_voice": 0,
+          "voice": 0.435
+        },
+        {
+          "channel_title": "fern",
+          "ai_voice": 0,
+          "voice": 0.431
+        },
+        {
+          "channel_title": "FaZe Rug",
+          "ai_voice": 0,
+          "voice": 0.3
+        },
+        {
+          "channel_title": "Yaroflasher",
+          "ai_voice": 1,
+          "voice": 0.257
+        },
+        {
+          "channel_title": "Animals Explain",
+          "ai_voice": 1,
+          "voice": 0.2
+        },
+        {
+          "channel_title": "Veritasium",
+          "ai_voice": 0,
+          "voice": 0.169
+        },
+        {
+          "channel_title": "RedLogic",
+          "ai_voice": 0,
+          "voice": 0.1
+        },
+        {
+          "channel_title": "LazarLazar",
+          "ai_voice": 0,
+          "voice": 0.1
+        },
+        {
+          "channel_title": "AI Samson",
+          "ai_voice": 0,
+          "voice": 0.0
+        },
+        {
+          "channel_title": "Kurzgesagt \u2013 In a Nutshell",
+          "ai_voice": 0,
+          "voice": 0.0
+        },
+        {
+          "channel_title": "Marques Brownlee",
+          "ai_voice": 0,
+          "voice": 0.0
+        },
+        {
+          "channel_title": "iReddit for Sleeping",
+          "ai_voice": 1,
+          "voice": 0.0
+        }
+      ]
+    }
+  ]
+}
