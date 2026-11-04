@@ -39,10 +39,11 @@ from urllib.parse import parse_qs, urlparse
 from dotenv import load_dotenv
 from googleapiclient.discovery import build
 
+from audio_utils import to_wav16k
+from config import RAW_DIR as RAW, ROOT
 from init_db import DB_PATH, init_db
+from split import assign_splits
 
-ROOT = Path(__file__).resolve().parent.parent
-RAW = ROOT / "data" / "raw"
 THUMB_DIR = RAW / "thumbs"
 FRAME_DIR = RAW / "frames"
 AUDIO_DIR = RAW / "audio"
@@ -170,20 +171,27 @@ def fetch_metadata(video_id: str) -> dict:
     }
 
 
-def fetch_images(video_id: str, thumb_url: str | None) -> dict:
-    """Custom thumbnail plus the 3 frames YouTube auto generates."""
+def fetch_images(video_id: str, thumb_url: str | None, out_dir: Path | None = None) -> dict:
+    """Custom thumbnail plus the 3 frames YouTube auto generates.
+
+    With out_dir the images go there and the paths returned are absolute.
+    Without it they go in data/raw and the paths are relative to the repo root.
+    """
     paths = {"thumb_path": None, "frame1_path": None,
              "frame2_path": None, "frame3_path": None}
+    thumb_dir = Path(out_dir) if out_dir else THUMB_DIR
+    frame_dir = Path(out_dir) if out_dir else FRAME_DIR
+    to_stored = (lambda p: str(p.resolve())) if out_dir else rel
 
     if thumb_url:
-        dest = THUMB_DIR / f"{video_id}.jpg"
+        dest = thumb_dir / f"{video_id}.jpg"
         if download(thumb_url, dest):
-            paths["thumb_path"] = rel(dest)
+            paths["thumb_path"] = to_stored(dest)
 
     for n in (1, 2, 3):
-        dest = FRAME_DIR / f"{video_id}_{n}.jpg"
+        dest = frame_dir / f"{video_id}_{n}.jpg"
         if download(f"https://i.ytimg.com/vi/{video_id}/hq{n}.jpg", dest):
-            paths[f"frame{n}_path"] = rel(dest)
+            paths[f"frame{n}_path"] = to_stored(dest)
         else:
             print(f"  warning, frame {n} not available")
 
@@ -224,18 +232,7 @@ def fetch_audio(video_id: str, duration_seconds: int) -> str:
             raise RuntimeError(f"yt-dlp failed for {video_id}: {dl.stderr.strip()}")
 
         # step 2, ffmpeg converts to the format the voice detector wants
-        ff = subprocess.run(
-            [
-                "ffmpeg", "-y", "-loglevel", "error",
-                "-i", str(files[0]),
-                "-ar", "16000", "-ac", "1",
-                "-t", str(CLIP_SECONDS),
-                str(out),
-            ],
-            capture_output=True, text=True,
-        )
-        if ff.returncode != 0:
-            raise RuntimeError(f"ffmpeg failed for {video_id}: {ff.stderr.strip()}")
+        to_wav16k(files[0], out, max_seconds=CLIP_SECONDS)
 
     return rel(out)
 
@@ -246,6 +243,15 @@ def collect_video(video_id: str) -> dict:
     thumb_url = row.pop("_thumb_url")
     row.update(fetch_images(video_id, thumb_url))
     row["audio_path"] = fetch_audio(video_id, row["duration_seconds"])
+    return row
+
+
+def fetch_for_scoring(video_id: str, out_dir: Path) -> dict:
+    """Metadata plus image paths, no audio. The backend cannot use yt-dlp
+    because YouTube blocks cloud IPs, so the browser sends the audio instead."""
+    row = fetch_metadata(video_id)
+    thumb_url = row.pop("_thumb_url")
+    row.update(fetch_images(video_id, thumb_url, out_dir))
     return row
 
 
@@ -314,6 +320,7 @@ def add_video(url: str, ai_voice: int, ai_visuals: int, ai_thumbnail: int) -> No
         placeholders = ", ".join(f":{k}" for k in row)
         conn.execute(f"INSERT INTO videos ({columns}) VALUES ({placeholders})", row)
         conn.commit()
+        assign_splits(conn)
 
         count = conn.execute(
             "SELECT COUNT(*) FROM videos WHERE channel_id = ?", (row["channel_id"],)
