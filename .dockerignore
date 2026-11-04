@@ -1,0 +1,9 @@
+data/
+.venv/
+.env
+extension/
+reports/
+tests/
+.git/
+packages/
+**/__pycache__/
